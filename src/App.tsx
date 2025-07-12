@@ -18,10 +18,10 @@ import ProtectedRoute from '@/components/auth/ProtectedRoute';
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="rewear-theme">
+    <ThemeProvider defaultTheme="light" storageKey="rewear-theme" >
       <AuthProvider>
         <Router>
-          <div className="min-h-screen bg-background">
+          <div className="min-h-screen bg-background w-screen">
             <Header />
             <main className="pt-16">
               <Routes>

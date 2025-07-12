@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -266,7 +265,7 @@ const ItemDetailPage = () => {
       </Breadcrumb>
 
       {/* Back Button */}
-      <Button variant="ghost" className="mb-6" onClick={() => navigate(-1)}>
+      <Button variant="ghost" className="mb-6 text-white" onClick={() => navigate(-1)}>
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back
       </Button>

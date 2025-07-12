@@ -15,11 +15,11 @@ const AuthPage = () => {
     email: '',
     password: '',
   });
-  
+
   const { login, register, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const from = location.state?.from?.pathname || '/dashboard';
 
   useEffect(() => {
@@ -38,29 +38,29 @@ const AuthPage = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     const success = await login(formData.email, formData.password);
     if (success) {
       navigate(from, { replace: true });
     }
-    
+
     setIsLoading(false);
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     const success = await register(formData.name, formData.email, formData.password);
     if (success) {
       navigate(from, { replace: true });
     }
-    
+
     setIsLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 flex items-center justify-center p-4">
+    <div className="max-h-screen bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
@@ -77,7 +77,7 @@ const AuthPage = () => {
         <Card className="shadow-lg">
           <Tabs defaultValue="login" className="w-full">
             <CardHeader className="pb-4">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-cols-2 gap-2">
                 <TabsTrigger value="login">Sign In</TabsTrigger>
                 <TabsTrigger value="register">Sign Up</TabsTrigger>
               </TabsList>
@@ -91,7 +91,7 @@ const AuthPage = () => {
                     Welcome back! Enter your credentials to continue.
                   </CardDescription>
                 </div>
-                
+
                 <form onSubmit={handleLogin} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="login-email">Email</Label>
@@ -106,7 +106,7 @@ const AuthPage = () => {
                       disabled={isLoading}
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="login-password">Password</Label>
                     <Input
@@ -120,10 +120,10 @@ const AuthPage = () => {
                       disabled={isLoading}
                     />
                   </div>
-                  
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
+
+                  <Button
+                    type="submit"
+                    className="w-full"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -149,7 +149,7 @@ const AuthPage = () => {
                     Join ReWear and start your sustainable fashion journey.
                   </CardDescription>
                 </div>
-                
+
                 <form onSubmit={handleRegister} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="register-name">Full Name</Label>
@@ -164,7 +164,7 @@ const AuthPage = () => {
                       disabled={isLoading}
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="register-email">Email</Label>
                     <Input
@@ -178,7 +178,7 @@ const AuthPage = () => {
                       disabled={isLoading}
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="register-password">Password</Label>
                     <Input
@@ -193,10 +193,10 @@ const AuthPage = () => {
                       minLength={6}
                     />
                   </div>
-                  
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
+
+                  <Button
+                    type="submit"
+                    className="w-full"
                     disabled={isLoading}
                   >
                     {isLoading ? (

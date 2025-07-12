@@ -5,13 +5,13 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  BreadcrumbLink, 
-  BreadcrumbList, 
-  BreadcrumbPage, 
-  BreadcrumbSeparator 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 import { Search, Filter, Grid, List, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -40,10 +40,10 @@ interface Pagination {
 }
 
 const categories = [
-  'TOPS', 'BOTTOMS', 'DRESSES', 'OUTERWEAR', 'SHOES', 'ACCESSORIES', 'ACTIVEWEAR', 'FORMAL', 'CASUAL'
+  'TOPS', 'BOTTOMS', 'DRESSES', 'OUTERWEAR', 'SHOES', 'ACCESSORIES', 'ACTIVEWEAR', 'FORMAL', 'CASUAL', 'ALL'
 ];
 
-const conditions = ['NEW', 'LIKE_NEW', 'GOOD', 'FAIR', 'WORN'];
+const conditions = ['NEW', 'LIKE_NEW', 'GOOD', 'FAIR', 'WORN', 'ALL'];
 
 const ItemsPage = () => {
   const [items, setItems] = useState<Item[]>([]);
@@ -54,13 +54,13 @@ const ItemsPage = () => {
     total: 0,
     pages: 0,
   });
-  
+
   const [filters, setFilters] = useState({
     search: '',
-    category: '',
+    category: 'TOPS',
     condition: '',
   });
-  
+
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   useEffect(() => {
@@ -118,7 +118,7 @@ const ItemsPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 w-full">
       {/* Breadcrumb */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
@@ -142,7 +142,7 @@ const ItemsPage = () => {
             Discover amazing clothing pieces from our community
           </p>
         </div>
-        
+
         <div className="flex items-center gap-2 mt-4 lg:mt-0">
           <Button
             variant={viewMode === 'grid' ? 'default' : 'outline'}
@@ -168,17 +168,17 @@ const ItemsPage = () => {
             <Filter className="h-5 w-5 text-muted-foreground" />
             <h3 className="font-semibold">Filters</h3>
             {(filters.search || filters.category || filters.condition) && (
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={clearFilters}
-                className="text-muted-foreground"
+                className="text-muted-foreground text-white"
               >
                 Clear all
               </Button>
             )}
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -189,13 +189,13 @@ const ItemsPage = () => {
                 className="pl-10"
               />
             </div>
-            
+
             <Select value={filters.category} onValueChange={(value) => handleFilterChange('category', value)}>
               <SelectTrigger>
                 <SelectValue placeholder="All categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All categories</SelectItem>
+                <SelectItem value={filters.category}>All categories</SelectItem>
                 {categories.map((category) => (
                   <SelectItem key={category} value={category}>
                     {formatCategoryName(category)}
@@ -203,13 +203,13 @@ const ItemsPage = () => {
                 ))}
               </SelectContent>
             </Select>
-            
+
             <Select value={filters.condition} onValueChange={(value) => handleFilterChange('condition', value)}>
               <SelectTrigger>
                 <SelectValue placeholder="All conditions" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All conditions</SelectItem>
+                <SelectItem value={filters.category}>All conditions</SelectItem>
                 {conditions.map((condition) => (
                   <SelectItem key={condition} value={condition}>
                     {formatConditionName(condition)}
@@ -249,43 +249,42 @@ const ItemsPage = () => {
       ) : (
         <>
           <div className={
-            viewMode === 'grid' 
+            viewMode === 'grid'
               ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8'
               : 'space-y-4 mb-8'
           }>
             {items.map((item) => (
-              <Card 
-                key={item.id} 
-                className={`overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer ${
-                  viewMode === 'list' ? 'flex' : ''
-                }`}
+              <Card
+                key={item.id}
+                className={`overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer ${viewMode === 'list' ? 'flex' : ''
+                  }`}
               >
                 <Link to={`/items/${item.id}`} className={viewMode === 'list' ? 'flex w-full' : 'block'}>
                   <div className={
-                    viewMode === 'list' 
-                      ? 'w-48 h-32 flex-shrink-0' 
+                    viewMode === 'list'
+                      ? 'w-48 h-32 flex-shrink-0'
                       : 'aspect-square'
                   }>
-                    <img 
-                      src={item.images[0]} 
+                    <img
+                      src={item.images[0]}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  
+
                   <CardContent className={`p-4 ${viewMode === 'list' ? 'flex-1' : ''}`}>
                     <div className={viewMode === 'list' ? 'flex justify-between h-full' : ''}>
                       <div className={viewMode === 'list' ? 'flex-1' : ''}>
                         <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors line-clamp-1">
                           {item.title}
                         </h3>
-                        
+
                         {viewMode === 'list' && (
                           <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
                             {item.description}
                           </p>
                         )}
-                        
+
                         <div className="flex items-center gap-2 mb-3">
                           <Badge variant="secondary" className="text-xs">
                             {formatCategoryName(item.category)}
@@ -294,7 +293,7 @@ const ItemsPage = () => {
                             {formatConditionName(item.condition)}
                           </Badge>
                         </div>
-                        
+
                         <div className="flex items-center justify-between text-sm text-muted-foreground">
                           <span>Size {item.size}</span>
                           <span>by {item.uploader.name}</span>
@@ -317,7 +316,7 @@ const ItemsPage = () => {
               >
                 Previous
               </Button>
-              
+
               <div className="flex items-center gap-1">
                 {Array.from({ length: Math.min(5, pagination.pages) }, (_, i) => {
                   const page = i + 1;
@@ -333,7 +332,7 @@ const ItemsPage = () => {
                   );
                 })}
               </div>
-              
+
               <Button
                 variant="outline"
                 disabled={pagination.page === pagination.pages}

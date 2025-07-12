@@ -11,12 +11,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Shirt, 
-  User, 
-  Settings, 
-  LogOut, 
-  Plus, 
+import {
+  Shirt,
+  LogOut,
+  Plus,
   LayoutDashboard,
   Crown,
   Coins
@@ -34,8 +32,8 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           className="flex items-center space-x-2 text-xl font-bold text-primary hover:text-primary/80 transition-colors"
         >
           <Shirt className="h-6 w-6" />
@@ -43,15 +41,17 @@ const Header = () => {
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6">
-          <Link 
-            to="/items" 
+          <Link
+            to="/items"
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
-            Browse Items
+            <button type="button" className="transtion group flex h-8 w-28 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 p-[1.5px] text-white duration-300 hover:bg-gradient-to-l hover:shadow-2xl hover:shadow-purple-600/30">
+              <div className="flex h-full w-full items-center justify-center rounded-full bg-gray-900 transition duration-300 ease-in-out group-hover:bg-gradient-to-br group-hover:from-gray-700 group-hover:to-gray-900 group-hover:transition group-hover:duration-300 group-hover:ease-in-out">Let's Shop</div>
+            </button>
           </Link>
           {user && (
-            <Link 
-              to="/add-item" 
+            <Link
+              to="/add-item"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
               List Item
@@ -68,7 +68,7 @@ const Header = () => {
                   {user.points} points
                 </Badge>
               </div>
-              
+
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
