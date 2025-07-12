@@ -20,11 +20,54 @@ import {
   Coins,
   MessageCircle
 } from 'lucide-react';
-import Requests from '@/pages/Requests';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [redemptions, setRedemptions] = useState<Redemption[]>([]);
+  const [pending, setPending] = useState(0);
+
+  interface Redemption {
+    id: string;
+    item: Item & { uploader: { id: string; name: string } };
+    pointsUsed: number;
+    status: string;
+    createdAt: string;
+    user: {
+      id: string;
+      name: string;
+      email: string;
+    };
+  }
+
+  interface Item {
+    id: string;
+    title: string;
+    images: string[];
+    category: string;
+    condition: string;
+    status: string;
+    createdAt: string;
+  }
+
+  const fetchRedemptions = () => {
+    if (!user) return;
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:3001/api/redemptions/incoming', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((r) => r.ok ? r.json() : [])
+      .then((redemptions) => {
+        setRedemptions(redemptions);
+        const pending = redemptions.filter((r: Redemption) => r.status === "PENDING").length;
+        setPending(pending);
+      })
+  };
+
+  useEffect(() => {
+    fetchRedemptions();
+  }, [user]);
 
   const handleLogout = () => {
     logout();
@@ -66,6 +109,12 @@ const Header = () => {
         <div className="flex items-center space-x-4">
           {user ? (
             <>
+              <div className="hidden sm:flex items-center space-x-2">
+                <MessageCircle className="h-4 w-4 text-yellow-500" />
+                <Badge variant="outline" className="font-medium">
+                  {pending}
+                </Badge>
+              </div>
               <div className="hidden sm:flex items-center space-x-2">
                 <Coins className="h-4 w-4 text-yellow-500" />
                 <Badge variant="secondary" className="font-medium">
