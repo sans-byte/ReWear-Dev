@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  points       Int      @default(100)
+  role         Role     @default(USER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  items        Item[]       @relation("UserItems")
+  swapsOffered Swap[]       @relation("SwapRequester")
+  swapsReceived Swap[]      @relation("SwapResponder")
+  redemptions  Redemption[]
+  adminActions AdminAction[]
+
+  @@map("users")
+}
+
+model Item {
+  id          String      @id @default(cuid())
+  title       String
+  description String
+  images      String[]
+  category    Category
+  size        String
+  condition   Condition
+  tags        String[]
+  status      ItemStatus  @default(AVAILABLE)
+  uploaderId  String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  uploader        User           @relation("UserItems", fields: [uploaderId], references: [id], onDelete: Cascade)
+  swapsOffered    Swap[]         @relation("ItemOffered")
+  swapsRequested  Swap[]         @relation("ItemRequested")
+  redemptions     Redemption[]
+  adminActions    AdminAction[]
+
+  @@map("items")
+}
+
+model Swap {
+  id              String    @id @default(cuid())
+  itemOfferedId   String
+  itemRequestedId String
+  status          SwapStatus @default(PENDING)
+  requesterId     String
+  responderId     String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  itemOffered   Item @relation("ItemOffered", fields: [itemOfferedId], references: [id], onDelete: Cascade)
+  itemRequested Item @relation("ItemRequested", fields: [itemRequestedId], references: [id], onDelete: Cascade)
+  requester     User @relation("SwapRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  responder     User @relation("SwapResponder", fields: [responderId], references: [id], onDelete: Cascade)
+
+  @@map("swaps")
+}
+
+model Redemption {
+  id         String   @id @default(cuid())
+  itemId     String
+  userId     String
+  pointsUsed Int
+  status     RedemptionStatus @default(PENDING)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("redemptions")
+}
+
+model AdminAction {
+  id         String     @id @default(cuid())
+  adminId    String
+  itemId     String
+  actionType ActionType
+  reason     String?
+  createdAt  DateTime   @default(now())
+
+  // Relations
+  admin User @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  item  Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@map("admin_actions")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Category {
+  TOPS
+  BOTTOMS
+  DRESSES
+  OUTERWEAR
+  SHOES
+  ACCESSORIES
+  ACTIVEWEAR
+  FORMAL
+  CASUAL
+}
+
+enum Condition {
+  NEW
+  LIKE_NEW
+  GOOD
+  FAIR
+  WORN
+}
+
+enum ItemStatus {
+  AVAILABLE
+  PENDING
+  SWAPPED
+  REDEEMED
+  REMOVED
+}
+
+enum SwapStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+enum RedemptionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum ActionType {
+  APPROVE
+  REJECT
+  REMOVE
+  RESTORE
+}
