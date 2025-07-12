@@ -46,7 +46,7 @@ const AdminPage = () => {
   const [itemsLoading, setItemsLoading] = useState(true);
   const [itemsPage, setItemsPage] = useState(1);
   const [itemsPages, setItemsPages] = useState(1);
-  const [itemStatusFilter, setItemStatusFilter] = useState('');
+  const [itemStatusFilter, setItemStatusFilter] = useState("AVAILABLE");
   const [users, setUsers] = useState<UserRow[]>([]);
   const [usersLoading, setUsersLoading] = useState(true);
   const [usersPage, setUsersPage] = useState(1);
@@ -109,7 +109,7 @@ const AdminPage = () => {
         <Crown className="h-6 w-6 text-yellow-500" /> Admin Dashboard
       </h1>
       <Tabs defaultValue="stats" className="w-full">
-        <TabsList className="mb-6 w-full grid grid-cols-3">
+        <TabsList className="mb-6 w-full grid grid-cols-3 gap-2 text-white">
           <TabsTrigger value="stats" className="flex items-center gap-2 justify-center">
             <Users className="h-4 w-4" /> Stats
           </TabsTrigger>
@@ -178,7 +178,6 @@ const AdminPage = () => {
                 <SelectValue placeholder="All Statuses" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Statuses</SelectItem>
                 <SelectItem value="AVAILABLE">Available</SelectItem>
                 <SelectItem value="PENDING">Pending</SelectItem>
                 <SelectItem value="SWAPPED">Swapped</SelectItem>
@@ -238,12 +237,12 @@ const AdminPage = () => {
                   ))}
                 </tbody>
               </table>
-              <div className="flex items-center justify-between mt-4">
-                <Button variant="ghost" size="sm" onClick={() => setItemsPage((p) => Math.max(1, p - 1))} disabled={itemsPage === 1}>
+              <div className="flex items-center justify-between mt-4 text-white">
+                <Button variant="ghost" size="sm" className='text-white' onClick={() => setItemsPage((p) => Math.max(1, p - 1))} disabled={itemsPage === 1}>
                   <ArrowLeft className="h-4 w-4" /> Prev
                 </Button>
                 <span className="text-sm">Page {itemsPage} of {itemsPages}</span>
-                <Button variant="ghost" size="sm" onClick={() => setItemsPage((p) => Math.min(itemsPages, p + 1))} disabled={itemsPage === itemsPages}>
+                <Button variant="ghost" size="sm" className="text-white" onClick={() => setItemsPage((p) => Math.min(itemsPages, p + 1))} disabled={itemsPage === itemsPages}>
                   Next <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
@@ -306,12 +305,12 @@ const AdminPage = () => {
                 </tbody>
               </table>
               <div className="flex items-center justify-between mt-4">
-                <Button variant="ghost" size="sm" onClick={() => setUsersPage((p) => Math.max(1, p - 1))} disabled={usersPage === 1}>
+                <Button variant="ghost" size="sm" className="text-white" onClick={() => setUsersPage((p) => Math.max(1, p - 1))} disabled={usersPage === 1}>
                   <ArrowLeft className="h-4 w-4" /> Prev
                 </Button>
                 <span className="text-sm">Page {usersPage} of {usersPages}</span>
-                <Button variant="ghost" size="sm" onClick={() => setUsersPage((p) => Math.min(usersPages, p + 1))} disabled={usersPage === usersPages}>
-                  Next <ArrowRight className="h-4 w-4" />
+                <Button variant="ghost" size="sm" className='text-white' onClick={() => setUsersPage((p) => Math.min(usersPages, p + 1))} disabled={usersPage === usersPages}>
+                  Next <ArrowRight className="h-4 w-4 " />
                 </Button>
               </div>
             </div>

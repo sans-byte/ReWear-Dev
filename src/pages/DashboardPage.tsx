@@ -102,7 +102,7 @@ const DashboardPage = () => {
             <Button variant="outline" onClick={() => navigate('/add-item')}>
               <Plus className="mr-2 h-4 w-4" /> List New Item
             </Button>
-            <Button variant="ghost" onClick={() => navigate('/auth')}>
+            <Button variant="ghost" className="text-white" onClick={() => navigate('/auth')}>
               <ArrowRight className="mr-2 h-4 w-4" /> Log Out
             </Button>
           </div>
@@ -111,7 +111,7 @@ const DashboardPage = () => {
 
       {/* Dashboard Tabs */}
       <Tabs defaultValue="items" className="w-full">
-        <TabsList className="mb-6 w-full grid grid-cols-3">
+        <TabsList className="mb-6 w-full grid grid-cols-3 gap-2 text-white">
           <TabsTrigger value="items" className="flex items-center gap-2 justify-center">
             <Shirt className="h-4 w-4" /> My Items
           </TabsTrigger>

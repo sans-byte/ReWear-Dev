@@ -17,8 +17,10 @@ import {
   Plus,
   LayoutDashboard,
   Crown,
-  Coins
+  Coins,
+  MessageCircle
 } from 'lucide-react';
+import Requests from '@/pages/Requests';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -54,7 +56,9 @@ const Header = () => {
               to="/add-item"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              List Item
+              <button type="button" className="transtion group flex h-8 w-28 items-center justify-center rounded-full bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 p-[1.5px] text-white duration-300 hover:bg-gradient-to-l hover:shadow-2xl hover:shadow-purple-600/30">
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-gray-900 transition duration-300 ease-in-out group-hover:bg-gradient-to-br group-hover:from-gray-700 group-hover:to-gray-900 group-hover:transition group-hover:duration-300 group-hover:ease-in-out">List Items</div>
+              </button>
             </Link>
           )}
         </nav>
@@ -113,6 +117,10 @@ const Header = () => {
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate('/requests')}>
+                    <MessageCircle className='mr-2 h-4 w-4' />
+                    <span>Requests</span>
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Log out</span>

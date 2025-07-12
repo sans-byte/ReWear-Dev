@@ -8,25 +8,25 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  BreadcrumbLink, 
-  BreadcrumbList, 
-  BreadcrumbPage, 
-  BreadcrumbSeparator 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import { 
-  ArrowLeft, 
-  Heart, 
-  Share2, 
-  Loader2, 
-  User, 
-  Calendar, 
-  Tag, 
-  Ruler, 
+import {
+  ArrowLeft,
+  Heart,
+  Share2,
+  Loader2,
+  User,
+  Calendar,
+  Tag,
+  Ruler,
   Star,
   Shuffle,
   Coins,
@@ -63,7 +63,7 @@ const ItemDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
   const navigate = useNavigate();
-  
+
   const [item, setItem] = useState<Item | null>(null);
   const [userItems, setUserItems] = useState<UserItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -280,16 +280,15 @@ const ItemDetailPage = () => {
               className="w-full h-full object-cover"
             />
           </div>
-          
+
           {item.images.length > 1 && (
             <div className="flex gap-2 overflow-x-auto">
               {item.images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-colors ${
-                    index === currentImageIndex ? 'border-primary' : 'border-transparent'
-                  }`}
+                  className={`flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-colors ${index === currentImageIndex ? 'border-primary' : 'border-transparent'
+                    }`}
                 >
                   <img
                     src={image}
@@ -320,7 +319,7 @@ const ItemDetailPage = () => {
                   </Badge>
                 </div>
               </div>
-              
+
               <div className="flex gap-2">
                 <Button variant="outline" size="sm">
                   <Heart className="h-4 w-4" />
@@ -342,19 +341,19 @@ const ItemDetailPage = () => {
                 <span className="text-sm text-muted-foreground">Size:</span>
                 <span className="font-medium">{item.size}</span>
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <Star className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">Condition:</span>
                 <span className="font-medium">{formatConditionName(item.condition)}</span>
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <Tag className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">Category:</span>
                 <span className="font-medium">{formatCategoryName(item.category)}</span>
               </div>
-              
+
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">Listed:</span>
@@ -421,7 +420,7 @@ const ItemDetailPage = () => {
                   <Button variant="outline" className="flex-1">
                     Edit Item
                   </Button>
-                  <Button variant="outline" className="flex-1">
+                  <Button variant="outline" className="flex-1" onClick={() => navigate("/requests")}>
                     <MessageCircle className="mr-2 h-4 w-4" />
                     View Requests
                   </Button>
@@ -442,7 +441,7 @@ const ItemDetailPage = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Offer one of your items in exchange for this item
                   </p>
-                  
+
                   {userItems.length > 0 ? (
                     <div className="space-y-4">
                       <Select value={selectedItemForSwap} onValueChange={setSelectedItemForSwap}>
@@ -457,9 +456,9 @@ const ItemDetailPage = () => {
                           ))}
                         </SelectContent>
                       </Select>
-                      
-                      <Button 
-                        onClick={handleSwapRequest} 
+
+                      <Button
+                        onClick={handleSwapRequest}
                         disabled={!selectedItemForSwap || swapLoading}
                         className="w-full"
                       >
@@ -501,7 +500,7 @@ const ItemDetailPage = () => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Use your points to request this item. You have {user.points} points available.
                   </p>
-                  
+
                   <div className="space-y-4">
                     <div>
                       <Label htmlFor="points">Points to offer</Label>
@@ -515,9 +514,9 @@ const ItemDetailPage = () => {
                         max={user.points}
                       />
                     </div>
-                    
-                    <Button 
-                      onClick={handleRedemption} 
+
+                    <Button
+                      onClick={handleRedemption}
                       disabled={!pointsToOffer || redeemLoading}
                       className="w-full"
                     >

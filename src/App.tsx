@@ -15,6 +15,7 @@ import AdminPage from '@/pages/AdminPage';
 // Layout
 import Header from '@/components/layout/Header';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
+import Requests from './pages/Requests';
 
 function App() {
   return (
@@ -50,6 +51,14 @@ function App() {
                   element={
                     <ProtectedRoute adminOnly>
                       <AdminPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/requests"
+                  element={
+                    <ProtectedRoute>
+                      <Requests />
                     </ProtectedRoute>
                   }
                 />

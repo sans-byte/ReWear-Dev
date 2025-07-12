@@ -10,22 +10,22 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  BreadcrumbLink, 
-  BreadcrumbList, 
-  BreadcrumbPage, 
-  BreadcrumbSeparator 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import { 
-  Upload, 
-  X, 
-  Plus, 
-  Loader2, 
-  Camera, 
+import {
+  Upload,
+  X,
+  Plus,
+  Loader2,
+  Camera,
   Tag,
   Shirt,
   AlertCircle
@@ -297,9 +297,9 @@ const AddItemPage = () => {
                   <SelectContent>
                     {conditions.map((condition) => (
                       <SelectItem key={condition.value} value={condition.value}>
-                        <div>
-                          <div className="font-medium">{condition.label}</div>
-                          <div className="text-xs text-muted-foreground">{condition.description}</div>
+                        <div className='flex justify-center items-center gap-3'>
+                          <span className="font-medium flex-1">{condition.label}</span>
+                          <span className="text-xs text-muted-foreground">({condition.description})</span>
                         </div>
                       </SelectItem>
                     ))}
@@ -334,8 +334,8 @@ const AddItemPage = () => {
                   onKeyPress={(e) => handleKeyPress(e, addImage)}
                   className="flex-1"
                 />
-                <Button 
-                  type="button" 
+                <Button
+                  type="button"
                   onClick={addImage}
                   disabled={!imageUrl || watchedImages.length >= 5}
                   variant="outline"
@@ -426,8 +426,8 @@ const AddItemPage = () => {
                 onKeyPress={(e) => handleKeyPress(e, addTag)}
                 className="flex-1"
               />
-              <Button 
-                type="button" 
+              <Button
+                type="button"
                 onClick={addTag}
                 disabled={!newTag.trim() || watchedTags.length >= 10}
                 variant="outline"
@@ -464,9 +464,9 @@ const AddItemPage = () => {
 
         {/* Submit */}
         <div className="flex gap-4 justify-end">
-          <Button 
-            type="button" 
-            variant="outline" 
+          <Button
+            type="button"
+            variant="outline"
             onClick={() => navigate('/dashboard')}
             disabled={isSubmitting}
           >

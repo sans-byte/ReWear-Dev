@@ -77,7 +77,7 @@ const AuthPage = () => {
         <Card className="shadow-lg">
           <Tabs defaultValue="login" className="w-full">
             <CardHeader className="pb-4">
-              <TabsList className="grid w-full grid-cols-2 gap-2">
+              <TabsList className="grid w-full grid-cols-2 gap-2 text-white">
                 <TabsTrigger value="login">Sign In</TabsTrigger>
                 <TabsTrigger value="register">Sign Up</TabsTrigger>
               </TabsList>
